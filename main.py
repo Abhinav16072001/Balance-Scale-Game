@@ -100,7 +100,11 @@ class Game:
             return 
 
 
+def run():
+    n = int(input("Enter Number of players: "))
+    l = int(input("Set Limit: "))
+    game = Game(n, l)
+    game.start()
+    game.start_rounds()
 
-game = Game(3, -2)
-game.start()
-game.start_rounds()
+run()
