@@ -49,6 +49,8 @@ class Game:
             for player in self.players:
                 print(f"{player.name}: {player.number}", end=' ')
 
+            print()
+
             # Check for duplicate numbers
             if len(self.players) == 2:
 
