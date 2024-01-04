@@ -1,4 +1,3 @@
-import getpass
 import random
 
 class Player:
@@ -36,7 +35,7 @@ class Game:
             for player in self.players:
                 while True:
                     try:
-                        num = int(getpass.getpass(
+                        num = int(input(
                             f"Player {player.name} choose a number (0 - 100): "))
                         player.number = num
                         numbers.append(num)
