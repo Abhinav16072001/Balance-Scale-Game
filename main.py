@@ -1,4 +1,5 @@
 import random
+from tabulate import tabulate
 
 class Player:
     def __init__(self, name):
@@ -26,6 +27,16 @@ class Game:
         else:
             return (sum(numbers) / len(numbers)) * 0.8
 
+    def display_winners(self, min_score_players):
+        if self.players and min_score_players:
+            winner_data = [player.name for player in min_score_players]
+            if len(winner_data)==1:
+                print("Winner: ", ", ".join(winner_data))
+            else:
+                print("Winners: ", ", ".join(winner_data))
+        else:
+            print("No winners to display.")
+
     def start_rounds(self):
         while len(self.players) != 1:
             numbers = []
@@ -45,8 +56,8 @@ class Game:
 
             score = random.randint(0, 100)
 
-            for player in self.players:
-                print(f"{player.name}: {player.number}", end=' ')
+            # for player in self.players:
+            #     print(f"{player.name}: {player.number}", end=' ')
             
             print()
 
@@ -86,10 +97,13 @@ class Game:
                     self.players.remove(player)
                     print(f"Player {player.name} has been eliminated")
 
+            self.display_winners(min_score_player)
+
             min_score_player.clear()
             
             if self.players:
-                print([f'{i.name}: {i.points}' for i in self.players])
+                data = [[player.name, player.points] for player in self.players]
+                print(tabulate(data, headers=["Player Name", "Points"], tablefmt="grid"))
             else:
                 break
 
