@@ -48,11 +48,14 @@ class Game:
                     try:
                         num = int(input(
                             f"Player {player.name} choose a number (0 - 100): "))
-                        player.number = num
-                        numbers.append(num)
-                        break
+                        if 0 <= num <= 100:
+                            player.number = num
+                            numbers.append(num)
+                            break
+                        else:
+                            print("choose a number 0 - 100")
                     except ValueError:
-                        print("Invalid input. Please enter a valid number.")
+                        print("Invalid input: Please enter a valid number.")
 
             score = random.randint(0, 100)
 
