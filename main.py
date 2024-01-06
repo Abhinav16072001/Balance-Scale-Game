@@ -130,19 +130,10 @@ class Game:
             print("Tie")
             return
 
+
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def text_to_speech(message, filename):
-    tts = gTTS(message)
-    tts.save(filename)
-
-def play_audio(file_path):
-    pygame.mixer.init(frequency=44100, size=-16, channels=2, buffer=4096)
-    pygame.mixer.music.load(file_path)
-    pygame.mixer.music.play()
-    while pygame.mixer.music.get_busy():
-        pygame.time.Clock().tick(10)
 
 def run():
     messages = [
@@ -157,17 +148,9 @@ def run():
         "Let's begin the game!"
     ]
 
-    audio_files = []
-
     for idx, message in enumerate(messages):
         clear_screen()
         cowsay.cow(message)
-        
-        audio_filename = f"audio_{idx}.mp3"  # Unique filename for each message
-        text_to_speech(message, audio_filename)
-        audio_files.append(audio_filename)
-        
-        play_audio(audio_filename)
         input("Press Enter to continue...")
         time.sleep(1)  # Add a delay between messages
 
@@ -176,4 +159,6 @@ def run():
     game = Game(n, l)
     game.start()
     game.start_rounds()
+
+
 run()
