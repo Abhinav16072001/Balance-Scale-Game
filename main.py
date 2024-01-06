@@ -102,7 +102,7 @@ class Game:
                     self.players.remove(player)
                     print(f"Player {player.name} has been eliminated")
 
-            # self.display_winners(min_score_player)
+            self.display_winners(min_score_player)
 
             min_score_player.clear()
 
