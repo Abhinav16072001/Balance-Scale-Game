@@ -5,6 +5,7 @@ import cowsay
 from tabulate import tabulate
 from gtts import gTTS
 import time
+import pygame
 
 
 class Player:
@@ -137,7 +138,11 @@ def text_to_speech(message, filename):
     tts.save(filename)
 
 def play_audio(file_path):
-    os.system(f"start {file_path}")  # Opens the audio file with the default audio player
+    pygame.mixer.init()
+    pygame.mixer.music.load(file_path)
+    pygame.mixer.music.play()
+    while pygame.mixer.music.get_busy():
+        pygame.time.Clock().tick(10)
 
 
 def run():
@@ -172,5 +177,4 @@ def run():
     game = Game(n, l)
     game.start()
     game.start_rounds()
-
 run()
