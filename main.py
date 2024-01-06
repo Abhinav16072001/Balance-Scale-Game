@@ -1,5 +1,7 @@
+import os
 import random
 import getpass
+import cowsay
 from tabulate import tabulate
 
 
@@ -127,6 +129,23 @@ class Game:
 
 
 def run():
+    messages = [
+        "Hello, everyone!",
+        "Are you ready to play a game?",
+        "Before we start, let me explain the rules to you.",
+        "Firstly, each player should choose a number between 0 and 100.",
+        "After that, a random number will be generated.",
+        "The player whose number is closest to the generated number wins!",
+        "There can be multiple winners, losers, or ties.",
+        "However, if two players choose the same number, they will both receive a penalty of -1 point regardless of the game's result.",
+        "Let's begin the game!"
+    ]
+
+    for message in messages:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        cowsay.cow(message)
+        input("Press Enter to continue...")
+
     n = int(input("Enter Number of players: "))
     l = int(input("Set Limit: "))
     game = Game(n, l)
