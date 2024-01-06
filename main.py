@@ -1,5 +1,7 @@
 import random
+import getpass
 from tabulate import tabulate
+
 
 class Player:
     def __init__(self, name):
@@ -30,7 +32,7 @@ class Game:
     def display_winners(self, min_score_players):
         if self.players and min_score_players:
             winner_data = [player.name for player in min_score_players]
-            if len(winner_data)==1:
+            if len(winner_data) == 1:
                 print("Winner: ", ", ".join(winner_data))
             else:
                 print("Winners: ", ", ".join(winner_data))
@@ -46,7 +48,7 @@ class Game:
             for player in self.players:
                 while True:
                     try:
-                        num = int(input(
+                        num = int(getpass.getpass(
                             f"Player {player.name} choose a number (0 - 100): "))
                         if 0 <= num <= 100:
                             player.number = num
@@ -61,20 +63,21 @@ class Game:
 
             # for player in self.players:
             #     print(f"{player.name}: {player.number}", end=' ')
-            
+
             print()
 
             # Check for duplicate numbers
-            if len(self.players) == 2:
+            # if len(self.players) == 2:
 
-                duplicate_numbers = [item for item in numbers if numbers.count(item) > 1]
-                if duplicate_numbers:
-                    for player in self.players:
-                        if player.number in duplicate_numbers:
-                            player.points -= 1
-                            print(f"Player {player.name} had a duplicate number, points decremented.") 
+            duplicate_numbers = [
+                item for item in numbers if numbers.count(item) > 1]
+            if duplicate_numbers:
+                for player in self.players:
+                    if player.number in duplicate_numbers:
+                        player.points -= 1
+                        print(
+                            f"Player {player.name} had a duplicate number, points decremented.")
 
-            numbers.clear()
             if len(self.players) == 0:
                 return
             print("Score: ", score)
@@ -89,7 +92,6 @@ class Game:
                     min_score_player.append(player)
 
             for player in self.players:
-                player.number = None
                 if player in min_score_player:
                     continue
                 player.points -= 1
@@ -100,22 +102,28 @@ class Game:
                     self.players.remove(player)
                     print(f"Player {player.name} has been eliminated")
 
-            self.display_winners(min_score_player)
+            # self.display_winners(min_score_player)
 
             min_score_player.clear()
-            
+
             if self.players:
-                data = [[player.name, player.points] for player in self.players]
-                print(tabulate(data, headers=["Player Name", "Points"], tablefmt="grid"))
+                data = [[player.name, player.points, player.number]
+                        for player in self.players]
+                print(tabulate(data, headers=[
+                      "Player Name", "Points", "Number Choose"], tablefmt="grid"))
             else:
                 break
+
+            for player in self.players:
+                player.number = None
+            numbers.clear()
 
         if self.players:
             print(f'Player {self.players[0].name} won')
             return self.players[0]
         else:
             print("Tie")
-            return 
+            return
 
 
 def run():
@@ -124,5 +132,6 @@ def run():
     game = Game(n, l)
     game.start()
     game.start_rounds()
+
 
 run()
