@@ -97,6 +97,8 @@ class Game:
                     min_score_player.append(player)
 
             for player in self.players:
+                if player.number == score:
+                    player.points += 1
                 if player in min_score_player:
                     continue
                 player.points -= 1
