@@ -153,7 +153,9 @@ def run():
     for idx, message in enumerate(messages):
         clear_screen()
         cowsay.cow(message)
-        input("Press Enter to continue...")
+        s = input("Press Enter to continue...")
+        if s == "ok":
+            break
         time.sleep(1)  # Add a delay between messages
 
     n = int(input("Enter Number of players: "))
