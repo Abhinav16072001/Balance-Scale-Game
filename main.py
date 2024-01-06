@@ -138,12 +138,11 @@ def text_to_speech(message, filename):
     tts.save(filename)
 
 def play_audio(file_path):
-    pygame.mixer.init()
+    pygame.mixer.init(frequency=44100, size=-16, channels=2, buffer=4096)
     pygame.mixer.music.load(file_path)
     pygame.mixer.music.play()
     while pygame.mixer.music.get_busy():
         pygame.time.Clock().tick(10)
-
 
 def run():
     messages = [
